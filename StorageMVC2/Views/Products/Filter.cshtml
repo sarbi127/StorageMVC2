@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "Filter";
+}
+
+<h1>Filter</h1>
+
+<form asp-controller="Product" asp-action="Filter" method="get">
+
+    <input type="text" placeholder="Search here..." autofocus class="form-control" name="categoty" />
+
+    <input type="submit" class="btn btn-primary" />
+
+</form>
