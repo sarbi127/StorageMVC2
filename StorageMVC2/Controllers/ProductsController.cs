@@ -29,7 +29,6 @@ namespace StorageMVC2.Controllers
 
         public IActionResult List()
         {
-          
             ProductViewModel productViewModel = new ProductViewModel();
             productViewModel.product = _productRepository.AllProduct;
 
@@ -46,6 +45,26 @@ namespace StorageMVC2.Controllers
             }
             return View(model);
         }
+
+        //public async Task<IActionResult> DropDown(string category)
+        //{
+
+        //    var model = await _context.Product.ToListAsync();
+
+        //    var selectList = new List<SelectListItem>();
+
+        //    foreach (var element in model)
+        //    {
+        //        selectList.Add(new SelectListItem
+        //        {
+        //            Value = element.Name,
+        //            Text = element.Category
+
+        //        });
+        //    }
+
+        //    return View(selectList);
+        //}
 
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)

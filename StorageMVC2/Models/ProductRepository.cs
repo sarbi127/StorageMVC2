@@ -23,8 +23,14 @@ namespace StorageMVC2.Models
 
         public int TotalValue()
         {
-            return AllProduct.Sum(item => item.Price);
+
+           // foreach (var pro in AllProduct)
+                //var t = pro.Count * pro.Price;  
+
+           return AllProduct.Sum( item => item.Price );
+         
         }
+
 
     }
 }

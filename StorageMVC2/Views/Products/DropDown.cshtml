@@ -1,17 +1,28 @@
 ﻿@model IEnumerable<StorageMVC2.Models.Product>
 @{
-    ViewData["Title"] = "Filter";
+    ViewData["Title"] = "DropDown";
 }
 
-<h1>Filter</h1>
+<h1>DropDown</h1>
 
-<form asp-controller="Products" asp-action="Filter" method="get">
+<form asp-controller="Products" asp-action="DropDown" method="get">
 
     <input type="text" placeholder="Search here..." autofocus class="form-control" name="category" />
-
     <input type="submit" class="btn btn-primary" />
 
 </form>
+
+@*@Html.DropDownList("StudentGender",
+                    new SelectList(Enum.GetValues(typeof(Gender))),
+                    "Select Gender",
+                    new { @class = "form-control" })
+
+<select class="form-control" id="StudentGender" name="StudentGender">
+    <option>Select Gender</option>
+    <option>Male</option>
+    <option>Female</option>
+</select>*@
+
 
 <table class="table">
     <thead>

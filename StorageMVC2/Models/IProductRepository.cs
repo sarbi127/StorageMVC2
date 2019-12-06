@@ -10,5 +10,6 @@ namespace StorageMVC2.Models
         IEnumerable<Product> AllProduct { get; }
 
         int TotalValue();
+
     }
 }
