@@ -27,44 +27,80 @@ namespace StorageMVC2.Controllers
             return View(await _context.Product.ToListAsync());
         }
 
-        public IActionResult List()
+        public async Task< IActionResult> List()
         {
-            ProductViewModel productViewModel = new ProductViewModel();
-            productViewModel.product = _productRepository.AllProduct;
+            IEnumerable<ProductViewModel> productNew = await _context.Product.Select(a => new ProductViewModel
+            {
+                Name = a.Name,
+                Price = a.Price,
+                Count = a.Count,
+                InventoryValue = a.Count * a.Price
 
-            productViewModel.InventoryValue = _productRepository.TotalValue();
-            return View(productViewModel);
+            }).ToListAsync();
+
+            return View(productNew);
         }
 
         public async Task<IActionResult> Filter(string category)
         {
-            var model = await _context.Product.ToListAsync();
-            if (!string.IsNullOrEmpty(category))
-            {
-                model = model.Where(p => p.Category.Contains(category)).ToList();
-            }
-            return View(model);
+              IEnumerable<ProductViewModel> productNew = await _context.Product
+             .Where(p => p.Category.StartsWith(category))
+             .Select(a => new ProductViewModel
+             {
+                 Name = a.Name,
+                 Price = a.Price,
+                 Count = a.Count,
+                 InventoryValue = a.Count * a.Price
+
+             }).ToListAsync();
+
+            
+            return View(nameof(List), productNew);
+
+            //var model = await _context.Product.ToListAsync();
+            //if (!string.IsNullOrEmpty(category))
+            //{
+            //    model = model.Where(p => p.Category.Contains(category)).ToList();
+            //}
+            //return View(model);
         }
 
-        //public async Task<IActionResult> DropDown(string category)
-        //{
+       //Get
+        public IActionResult Dropdown()
+        {
+            DropdownViewModel model = new DropdownViewModel();
+            model.product = _productRepository.AllProduct;
+            model.SelectedProductName = null;
 
-        //    var model = await _context.Product.ToListAsync();
+            IEnumerable<SelectListItem> list = _productRepository.AllProduct.Select(P => new SelectListItem
+            {
+                Value = P.Id.ToString(),
+                Text = P.Name,
+            });
 
-        //    var selectList = new List<SelectListItem>();
+            model.SelectList = list;     
+            return this.View(model);
 
-        //    foreach (var element in model)
-        //    {
-        //        selectList.Add(new SelectListItem
-        //        {
-        //            Value = element.Name,
-        //            Text = element.Category
+        }
 
-        //        });
-        //    }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Dropdown( string name)
+        {
+            IEnumerable<ProductViewModel> productNew = await _context.Product
+             .Where(p => p.Name.StartsWith(name))
+             .Select(a => new ProductViewModel
+             {
+                 Name = a.Name,
+                 Price = a.Price,
+                 Count = a.Count,
+                 InventoryValue = a.Count * a.Price
 
-        //    return View(selectList);
-        //}
+             }).ToListAsync();
+
+            return View(nameof(List), productNew);
+
+        }
 
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)

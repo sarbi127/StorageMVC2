@@ -13,6 +13,7 @@ namespace StorageMVC2.Models
         {
         }
 
+        //Database
         public DbSet<StorageMVC2.Models.Product> Product { get; set; }
     }
 }

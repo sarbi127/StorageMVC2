@@ -7,7 +7,6 @@ namespace StorageMVC2.Models
 {
     public class MockProductRepository:IProductRepository
     {
-
         public IEnumerable<Product> AllProduct =>
             new List<Product>
             {
@@ -17,9 +16,9 @@ namespace StorageMVC2.Models
 
             };
 
-        public int TotalValue()
-        {
-            return AllProduct.Sum(item => item.Price);
-        }
+        //public int TotalValue()
+        //{
+        //    return AllProduct.Sum(item => item.Price);
+        //}
     }
 }

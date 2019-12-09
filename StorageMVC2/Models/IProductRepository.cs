@@ -8,8 +8,7 @@ namespace StorageMVC2.Models
     public interface IProductRepository
     {
         IEnumerable<Product> AllProduct { get; }
-
-        int TotalValue();
+        //int TotalValue();
 
     }
 }

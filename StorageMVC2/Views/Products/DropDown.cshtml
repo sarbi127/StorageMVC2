@@ -1,87 +1,27 @@
-﻿@model IEnumerable<StorageMVC2.Models.Product>
+﻿@model DropdownViewModel
+
 @{
-    ViewData["Title"] = "DropDown";
+    ViewData["Title"] = "Dropdown";
 }
 
-<h1>DropDown</h1>
+    <h1>Dropdown Filter by Name</h1>
 
-<form asp-controller="Products" asp-action="DropDown" method="get">
+<section>
 
-    <input type="text" placeholder="Search here..." autofocus class="form-control" name="category" />
-    <input type="submit" class="btn btn-primary" />
+    <div class="well bs-component">
+        <br />
+        <div class="row">
+            <div class="col-xs-4 col-xs-push-0">
+                <div class="form-group">
+                    <form asp-controller="Products" asp-action="Dropdown" method="get">
+                        <input id="name" placeholder="..." name="name" type="text" />
+                        <select asp-for="SelectedProductName" ><option value="">Select</option> <option asp-select="@Model.SelectList" /> </select>
+                        @Html.DropDownListFor(c => c.SelectList, ViewBag.SelectList as SelectList, new { onchange = "this.form.submit();" })
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-</form>
 
-@*@Html.DropDownList("StudentGender",
-                    new SelectList(Enum.GetValues(typeof(Gender))),
-                    "Select Gender",
-                    new { @class = "form-control" })
-
-<select class="form-control" id="StudentGender" name="StudentGender">
-    <option>Select Gender</option>
-    <option>Male</option>
-    <option>Female</option>
-</select>*@
-
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Orderdate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Shelf)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Count)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Orderdate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Shelf)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Count)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>

@@ -6,9 +6,19 @@
 
 <h1>Index</h1>
 
+<form asp-controller="Products" asp-action="Filter" method="get">
+
+    <input type="text" placeholder="Search here..." autofocus class="form-control" name="category" />
+
+    <input type="submit" class="btn btn-primary btn-sm" />
+
+</form>
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+
 <table class="table">
     <thead>
         <tr>

@@ -11,30 +11,21 @@ namespace StorageMVC2.Models
     {
         [Required]
         public int Id { get; set; }
-
         [StringLength(30, ErrorMessage = "Max 30 tecken")]
         [Required]
         public string Name { get; set; }
-
-        [Range(0, 4000000)]
+        [Range(0, 400000)]
         public int Price { get; set; }
-
         [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         [Display(Name = "Date of order")]
         [DataType(DataType.Date)]
         public DateTime Orderdate { get; set; }
-
         public string Category { get; set; }
-
         public string Shelf { get; set; }
-
         [Range(0, 10)]
         public int Count { get; set; }
-
         public string Description { get; set; }
 
-
-        //public IEnumerable<SelectListItem> States { get; set; }
 
     }
 }
