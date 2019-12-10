@@ -65,16 +65,17 @@ namespace StorageMVC2.Controllers
             //return View(model);
         }
 
-       //Get
+        //Get
+        [HttpGet]
         public IActionResult Dropdown()
         {
             DropdownViewModel model = new DropdownViewModel();
             model.product = _productRepository.AllProduct;
             model.SelectedProductName = null;
 
-            IEnumerable<SelectListItem> list = _productRepository.AllProduct.Select(P => new SelectListItem
+            var list = _productRepository.AllProduct.Select(P => new SelectListItem
             {
-                Value = P.Id.ToString(),
+                Value = P.Name,
                 Text = P.Name,
             });
 
@@ -84,19 +85,21 @@ namespace StorageMVC2.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Dropdown( string name)
+        public async Task<IActionResult> Dropdown(DropdownViewModel model)
         {
             IEnumerable<ProductViewModel> productNew = await _context.Product
-             .Where(p => p.Name.StartsWith(name))
-             .Select(a => new ProductViewModel
-             {
-                 Name = a.Name,
-                 Price = a.Price,
-                 Count = a.Count,
-                 InventoryValue = a.Count * a.Price
+                .Where(p => p.Name.StartsWith(model.SelectedProductName))
+                .Select(a => new ProductViewModel
+                {
 
-             }).ToListAsync();
+                    Name = a.Name,
+                    Price = a.Price,
+                    Count = a.Count,
+                    InventoryValue = a.Count * a.Price
+
+                }).ToListAsync();
+
+
 
             return View(nameof(List), productNew);
 

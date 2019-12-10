@@ -1,27 +1,52 @@
 ﻿@model DropdownViewModel
 
+
+
 @{
+
     ViewData["Title"] = "Dropdown";
+
 }
 
-    <h1>Dropdown Filter by Name</h1>
+
+
+<h2>@ViewBag.Title</h2>
+
+
 
 <section>
 
     <div class="well bs-component">
+
         <br />
+
         <div class="row">
+
             <div class="col-xs-4 col-xs-push-0">
+
                 <div class="form-group">
-                    <form asp-controller="Products" asp-action="Dropdown" method="get">
+
+                    <form asp-controller="Products" asp-action="Dropdown" method="post">
+
                         <input id="name" placeholder="..." name="name" type="text" />
-                        <select asp-for="SelectedProductName" ><option value="">Select</option> <option asp-select="@Model.SelectList" /> </select>
-                        @Html.DropDownListFor(c => c.SelectList, ViewBag.SelectList as SelectList, new { onchange = "this.form.submit();" })
+
+                        <select asp-for="SelectedProductName" asp-items="@Model.SelectList"><option value="">Select</option></select>
+
+                        <input type="submit" />
+
                     </form>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
+
 </section>
+
+
+
 
 
